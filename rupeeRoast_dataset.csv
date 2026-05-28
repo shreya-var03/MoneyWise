@@ -1,0 +1,94 @@
+timestamp,merchant,category,amount_range,transaction_type,country,currency,merchant_type,category_hindi,category_hinglish,description_hindi,description_hinglish,source
+2026-05-28,DMRC,Transport,0-100,debit,India,INR,Mobility,परिवहन,Transport,मेट्रो किराया,Metro fare,RupeeRoast
+2026-05-28,Indian Trade,Other,100-500,debit,India,INR,Other,अन्य,Other,अन्य लेनदेन,Other transaction,RupeeRoast
+2026-05-28,Kamlesh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Love Care Foundation,Transfer Out,10000+,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Skygate,Other,1000-5000,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,NDMC,Utilities,0-100,debit,India,INR,Services,,,,,RupeeRoast
+2026-05-28,Wave,Other,500-1000,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Letzpay Solution,Transfer In,5000-10000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Praveen,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Mr. Manoj,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Burger Singh,Food,0-100,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Sadhana,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Avyay,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Indian Railway Catering,Transport,500-1000,debit,India,INR,Mobility,,,,,RupeeRoast
+2026-05-28,Meetu,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Aljawahar,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Dipesh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Delhi Metro,Transport,0-100,debit,India,INR,Mobility,,,,,RupeeRoast
+2026-05-28,Ronak,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Yadu,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Suresh Rai,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Mr. Brown,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Zepto,Groceries,1000-5000,debit,India,INR,Retail,,,,,RupeeRoast
+2026-05-28,Blinkit,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Impact,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Yukta Modi,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Deepak Pal,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Sunjoo,Other,100-500,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,DNSAILABSPRIVATE,Transfer In,10000+,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Abhishek,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Namita,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Love Care Foundation,Transfer In,10000+,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Upendra Kumar,Other,100-500,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Gurmehar,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Zomato,Transfer In,500-1000,credit,India,INR,P2P,भोजन,Food,ऑनलाइन खाना ऑर्डर,Online food order,RupeeRoast
+2026-05-28,Rahul Singh,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Saksham Gupta,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Aarsh Sanjay Kumar,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Mandeep Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,IRFC,Investment,500-1000,credit,India,INR,Finance,,,,,RupeeRoast
+2026-05-28,Sachin Kansal,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Wrappers,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Alim,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Flying Wish,Other,500-1000,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Msmstirupati,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Arvind,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Mrustam,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Bank,Transfer In,5000-10000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Spr,Other,500-1000,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Sunjoo,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Pushkarlal Gurjar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Kasim,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Reyes Ventures,Other,500-1000,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Taksh Gaur,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Kushagra,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,APY,Investment,0-100,debit,India,INR,Finance,निवेश,Investment,अटल पेंशन योजना निवेश,Atal pension yojana investment,RupeeRoast
+2026-05-28,Rajiv,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Sekh Golam,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Taco Bell,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,McDonalds,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Prateek,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Devanshi Gupta,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Jio,Utilities,100-500,debit,India,INR,Services,सुविधाएं,Utilities,मोबाइल बिल,Mobile bill,RupeeRoast
+2026-05-28,Blinkit,Groceries,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-05-28,Amazon,Shopping,5000-10000,debit,India,INR,Retail,खरीदारी,Shopping,ऑनलाइन खरीदारी,Online shopping,RupeeRoast
+2026-05-28,Gajendra,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Ekart,Shopping,500-1000,debit,India,INR,Retail,,,,,RupeeRoast
+2026-05-28,Lickilick,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Baskin Robbins,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Hairand,Personal Care,100-500,debit,India,INR,Wellness,,,,,RupeeRoast
+2026-05-28,Vinay,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Jyoti Broking,Investment,1000-5000,credit,India,INR,Finance,निवेश,Investment,शेयर बाजार निवेश,Share market investment,RupeeRoast
+2026-05-28,The Tandoori,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,ACHC,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Bewakoof,Shopping,500-1000,debit,India,INR,Retail,,,,,RupeeRoast
+2026-05-28,Devanshi,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Shipram,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Food,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Bigtree,Other,1000-5000,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Suman,Transfer Out,1000-5000,debit,India,INR,P2P,निकासी,Transfer out,पैसे ट्रांसफर,Paise transfer,RupeeRoast
+2026-05-28,Lifestyle,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-05-28,Subway,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-05-28,Logix City,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Paytm,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-05-28,Letzpay,Transfer In,10000+,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Kalpna,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Shubhi Chauhan,Transfer Out,1000-5000,debit,India,INR,P2P,हस्तांतरण,Transfer,१२०० रुपये का हस्तांतरण,1200 rupees transfer out,RupeeRoast
+2026-05-28,Manan Singhal,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Uber,Transport,0-100,debit,India,INR,Mobility,परिवहन,Safar,४४ रुपये का यात्रा किराया,44 rupees ka taxi fare,RupeeRoast
+2026-05-28,Varshney K,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Dominos,Food,0-100,debit,India,INR,F&B,भोजन,Khana,५५ रुपये का पिज्जा ऑर्डर,55 rupees ka pizza order,RupeeRoast
+2026-05-28,Devansh Varshney,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-05-28,Zomato,Food,100-500,debit,India,INR,F&B,भोजन,Khana,भोजन के लिए १३३ रुपये का भुगतान,133 rupees ka khana bill,RupeeRoast

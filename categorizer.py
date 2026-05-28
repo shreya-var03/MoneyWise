@@ -2,32 +2,56 @@ import os
 import json
 from groq import Groq
 from dotenv import load_dotenv
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def categorize_single_batch(batch):
-    transactions_text = "\n".join([f"{i+1}. {t}" for i, t in enumerate(batch)])
+def categorize_single_batch(batch_with_index):
+    index, batch = batch_with_index
+    transactions_text = "\n".join(batch)
     
-    prompt = f"""Categorize these Indian bank transactions. Return ONLY a JSON array.
-
-Each item must have:
-- "description": short name (max 5 words)
-- "amount": number (negative=withdrawal, positive=deposit)
-- "category": one of [Food, Transport, Entertainment, Shopping, Transfer In, Transfer Out, Utilities, Healthcare, Education, Investment, Other]
-- "merchant": merchant or person name
+    prompt = f"""
+You are a smart Indian finance assistant.
+Analyze these transactions from an Indian bank statement and categorize each one.
 
 Transactions:
 {transactions_text}
 
-JSON array only. No markdown. No explanation."""
+For each transaction, return a JSON array where each item has:
+- "description": the original transaction text (shortened, max 6 words)
+- "amount": extract the rupee amount as a number (negative for money sent/paid/withdrawn, positive for received/deposited)
+- "category": one of these: Food, Transport, Entertainment, Shopping, Transfer In, Transfer Out, Utilities, Healthcare, Education, Investment, Groceries, Personal Care, Other
+- "merchant": the actual merchant or person name (e.g. "Zomato", "Blinkit", "Uber", "Manan Singhal"). Be specific — don't say "Unknown" if you can figure it out from the text.
+
+Rules:
+- UPI-ZOMATO = Food, merchant Zomato
+- UPI-BLINKIT = Groceries, merchant Blinkit  
+- UPI-SWIGGY = Food, merchant Swiggy
+- UPI-UBER = Transport, merchant Uber
+- UPI-AMAZON = Shopping, merchant Amazon
+- UPI-MCDONALDS = Food, merchant McDonalds
+- UPI-DOMINOS = Food, merchant Dominos
+- UPI-BASKIN = Food, merchant Baskin Robbins
+- UPI-BOOKMYSHOW = Entertainment, merchant BookMyShow
+- UPI-JIO = Utilities, merchant Jio
+- PETROLEUM/FUEL/PETROL = Transport
+- NEFT CR / IMPS deposit = Transfer In
+- SALARY/LETZPAY/DNS = Transfer In (salary)
+- JYOTI BROKING = Investment
+- IRFC/APY = Investment
+- INTEREST PAID = Transfer In
+- If person name in UPI, use their name as merchant
+
+Return ONLY a valid JSON array, nothing else. No explanation, no markdown.
+"""
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.1,
-        max_tokens=3000
+        max_tokens=4000
     )
     
     raw = response.choices[0].message.content.strip()
@@ -38,32 +62,72 @@ JSON array only. No markdown. No explanation."""
     if start != -1 and end > start:
         raw = raw[start:end]
     
-    return json.loads(raw)
+    return index, json.loads(raw)
 
-def categorize_transactions(transactions_list):
-    # bigger batches = fewer API calls = faster
-    batch_size = 25
+
+import time
+
+def categorize_single_batch_with_retry(batch_with_index, retries=3):
+    index, batch = batch_with_index
+    for attempt in range(retries):
+        try:
+            return categorize_single_batch((index, batch))
+        except Exception as e:
+            if "429" in str(e) or "rate_limit" in str(e):
+                wait_time = 15 * (attempt + 1)
+                print(f"⏳ Batch {index+1} rate limited — waiting {wait_time}s then retrying...")
+                time.sleep(wait_time)
+            else:
+                print(f"❌ Batch {index+1} error: {e}")
+                break
+    
+    print(f"❌ Batch {index+1} failed after {retries} retries — using fallback")
+    return index, [{
+        "description": t[:40],
+        "amount": 0,
+        "category": "Other",
+        "merchant": "Unknown"
+    } for t in batch]
+
+
+def categorize_transactions(transactions_list, prebuilt_df=None):
+    batch_size = 20
     batches = [transactions_list[i:i+batch_size] 
                for i in range(0, len(transactions_list), batch_size)]
     
-    all_categorized = []
+    print(f"Total transactions: {len(transactions_list)}")
+    print(f"Total batches: {len(batches)} — running with rate limit protection...")
     
-    for i, batch in enumerate(batches):
-        print(f"Batch {i+1}/{len(batches)}...")
-        try:
-            result = categorize_single_batch(batch)
-            all_categorized.extend(result)
-        except Exception as e:
-            print(f"Batch {i+1} failed: {e}")
-            for t in batch:
-                all_categorized.append({
+    results = [None] * len(batches)
+    
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        futures = {
+            executor.submit(categorize_single_batch_with_retry, (i, batch)): i 
+            for i, batch in enumerate(batches)
+        }
+        
+        for future in as_completed(futures):
+            try:
+                index, result = future.result()
+                results[index] = result
+                print(f"✅ Batch {index+1}/{len(batches)} done")
+            except Exception as e:
+                index = futures[future]
+                print(f"❌ Batch {index+1} final failure: {e}")
+                results[index] = [{
                     "description": t[:40],
                     "amount": 0,
                     "category": "Other",
                     "merchant": "Unknown"
-                })
+                } for t in batches[index]]
+    
+    all_categorized = []
+    for r in results:
+        if r:
+            all_categorized.extend(r)
     
     return all_categorized
+
 
 if __name__ == "__main__":
     from parser import get_transaction_dataframe
@@ -74,4 +138,6 @@ if __name__ == "__main__":
         transactions = df["raw_transaction"].tolist()
         print(f"Total: {len(transactions)}")
         result = categorize_transactions(transactions)
-        print(f"Done: {len(result)}")
+        print(f"Categorized: {len(result)}")
+        for item in result[:10]:
+            print(item)

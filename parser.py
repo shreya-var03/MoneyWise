@@ -4,52 +4,22 @@ import re
 
 def extract_transactions(pdf_path):
     all_text = ""
+    
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
-            # try table extraction first (much better for HDFC)
-            tables = page.extract_tables()
-            if tables:
-                for table in tables:
-                    for row in table:
-                        if row:
-                            all_text += " | ".join([str(cell) for cell in row if cell]) + "\n"
-            else:
-                text = page.extract_text()
-                if text:
-                    all_text += text + "\n"
+            text = page.extract_text()
+            if text:
+                all_text += text + "\n"
+    
     return all_text
 
 def parse_transactions(raw_text):
     transactions = []
     lines = raw_text.split("\n")
     
-    seen = set()
-    
     for line in lines:
-        line = line.strip()
-        
-        # skip empty, header, or too short lines
-        if len(line) < 10:
-            continue
-        if any(skip in line.lower() for skip in [
-            'date', 'narration', 'balance', 'opening', 'closing',
-            'statement', 'account', 'branch', 'address', 'phone',
-            'nomination', 'page no', 'generated', 'hdfc bank',
-            'signature', 'micr', 'ifsc', 'gstin', 'registered'
-        ]):
-            continue
-        
-        # must contain a number (amount)
-        if not re.search(r'\d+[\.,]\d+', line):
-            continue
-        
-        # deduplicate
-        key = line[:40]
-        if key in seen:
-            continue
-        seen.add(key)
-        
-        transactions.append(line)
+        if re.search(r'\d+[\.,]\d+', line) and len(line.strip()) > 5:
+            transactions.append(line.strip())
     
     return transactions
 

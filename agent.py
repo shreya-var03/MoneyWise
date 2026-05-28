@@ -33,10 +33,15 @@ def generate_roast(categorized_transactions, language="Hinglish"):
                          for t in top_transactions])
 
     lang_instruction = {
-        "Hindi": "Respond entirely in Hindi (Devanagari script).",
-        "Hinglish": "Respond in Hinglish — casual mix of Hindi and English like a Gen Z Indian.",
-        "English": "Respond in English."
-    }.get(language, "")
+    "Hindi": "Respond entirely in Hindi (Devanagari script).",
+    "Hinglish": "Respond in Hinglish — casual mix of Hindi and English like a Gen Z Indian.",
+    "English": "Respond in English.",
+    "Tamil": "Respond entirely in Tamil script.",
+    "Telugu": "Respond entirely in Telugu script.",
+    "Bengali": "Respond entirely in Bengali (Bangla) script.",
+    "Marathi": "Respond entirely in Marathi (Devanagari script).",
+    "Punjabi": "Respond entirely in Punjabi (Gurmukhi script).",
+}.get(language, "Respond in English.")
 
     prompt = f"""You are RupeeRoast — savage, funny, brutally honest Indian finance coach. Zero chill. {lang_instruction}
 
@@ -57,15 +62,31 @@ Give:
 5. SCORE: Financial health score /10 with one-line judgement.
 
 Be savage, be real, be memorable."""
+   
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=1.0,
+            max_tokens=1000
+        )
+        return response.choices[0].message.content, totals, total_spent, total_received
+    except Exception as e:
+        if "429" in str(e):
+            fallback = """🔥 Daily token limit reached — but here's what we know:
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=1.0,
-        max_tokens=1000
-    )
+**WORST HABIT:** You spent the most on food delivery. Classic.
 
-    return response.choices[0].message.content, totals, total_spent, total_received
+**3 SAVINGS TIPS:**
+1. Cook at home at least 3 days a week
+2. Set a monthly food delivery budget
+3. Cancel subscriptions you forgot about
+
+**SAVINGS PREDICTION:** You could save ₹2,000-5,000 next month with discipline.
+
+**SCORE: 5/10** — Could be worse, could be much better. 💀"""
+        return fallback, totals, total_spent, total_received
+    raise e
 
 if __name__ == "__main__":
     from parser import get_transaction_dataframe

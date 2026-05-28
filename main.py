@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from parser import get_transaction_dataframe
 from categorizer import categorize_transactions
 from agent import generate_roast
+from dataset_builder import add_to_dataset, count_dataset_rows, get_dataset_stats
 import tempfile
 import pandas as pd
 
@@ -171,12 +172,16 @@ st.markdown("""
     box-shadow: 0 8px 25px rgba(255, 68, 68, 0.4) !important;
 }
 
-/* selectbox */
-.stSelectbox > div > div {
-    background: #1a1a1a !important;
-    border: 1px solid #2a2a2a !important;
-    border-radius: 10px !important;
-    color: white !important;
+/* label text */
+.stSelectbox label, .stFileUploader label {
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 1px !important;
+}
+
+p, label, .stMarkdown p {
+    color: #e2e8f0 !important;
 }
 
 /* file uploader */
@@ -443,11 +448,44 @@ st.markdown("""
 
 /* selectbox */
 .stSelectbox > div > div {
-    background: rgba(255,255,255,0.05) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
     border-radius: 12px !important;
     color: white !important;
     backdrop-filter: blur(10px) !important;
+    font-weight: 600 !important;
+}
+
+.stSelectbox > div > div > div {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+[data-baseweb="select"] * {
+    color: white !important;
+}
+
+[data-baseweb="popover"] {
+    background: #1e1b4b !important;
+    border: 1px solid rgba(167,139,250,0.4) !important;
+    border-radius: 12px !important;
+}
+
+[data-baseweb="menu"] {
+    background: #1e1b4b !important;
+    border-radius: 12px !important;
+}
+
+[data-baseweb="option"] {
+    background: #1e1b4b !important;
+    color: white !important;
+    font-weight: 500 !important;
+    padding: 10px 16px !important;
+}
+
+[data-baseweb="option"]:hover {
+    background: rgba(167,139,250,0.2) !important;
+    color: white !important;
 }
 
 /* file uploader */
@@ -509,10 +547,10 @@ st.markdown("""
 col1, col2 = st.columns([1, 1])
 with col1:
     language = st.selectbox(
-        "🌐 Roast Language",
-        ["Hinglish", "English", "Hindi"],
-        index=0
-    )
+    "🌐 Roast Language",
+    ["Hinglish", "English", "Hindi", "Tamil", "Telugu", "Bengali", "Marathi", "Punjabi"],
+    index=0
+)
 with col2:
     tone = st.selectbox(
         "🌶️ Savage Level",
@@ -549,6 +587,7 @@ if uploaded_file is not None:
             # pass tone to agent
             tone_map = {"Brutal 💀": "absolutely brutal and unhinged", "Savage 🔥": "savage and funny", "Gentle 😊": "gentle but honest"}
             roast, totals, total_spent, total_received = generate_roast(categorized, language=language)
+            dataset_count = add_to_dataset(categorized)
             progress.progress(100, text="Done!")
             progress.empty()
 
@@ -607,6 +646,25 @@ if uploaded_file is not None:
                 hide_index=True
             )
 
+        # dataset contribution
+        st.markdown('<div class="section-header">🌐 Adaption Dataset Contribution</div>', unsafe_allow_html=True)
+        stats = get_dataset_stats()
+        if stats:
+            col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Records", stats["total_records"])
+        with col2:
+            st.metric("Unique Merchants", stats["unique_merchants"])
+        with col3:
+            st.metric("Multilingual Entries", stats["multilingual_coverage"])
+        if 'dataset_count' in dir():
+            st.success(f"✅ Your statement added **{dataset_count} records** to the RupeeRoast multilingual dataset — powering India's financial AI!")
+        else:
+            st.success(f"✅ Dataset has **{stats['total_records']} records** powering India's financial AI!")
+
         # ── SHARE ──
         st.markdown('<div class="section-header">📱 Spread the Pain</div>', unsafe_allow_html=True)
         st.info("💀 Screenshot this and send it to your equally broke friends. Misery loves company.")
+        
+        
+        

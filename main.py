@@ -17,6 +17,17 @@ st.set_page_config(
 )
 
 st.markdown("""
+<div class="hero">
+    <div style="margin-bottom:1rem">
+        <span class="badge">🇮🇳 Built for Bharat • Powered by Adaptive Data</span>
+    </div>
+    <div class="hero-title">RupeeRoast 🔥</div>
+    <div class="hero-subtitle">India's Most Savage AI Finance Coach</div>
+    <div class="hero-tagline">Upload your statement. Get roasted. Save money.</div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
 
@@ -620,14 +631,44 @@ if uploaded_file is not None:
                 list(totals.items()),
                 columns=["Category", "Amount"]
             ).sort_values("Amount", ascending=False)
-            st.bar_chart(chart_df.set_index("Category"), color="#ff4444")
+        
+            import plotly.express as px
+            fig = px.bar(
+                chart_df,
+                x="Category",
+                y="Amount",
+            color_discrete_sequence=["#ff4444"],
+        )
+        fig.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(255,255,255,0.03)",
+            font_color="#ffffff",
+            xaxis=dict(gridcolor="rgba(255,255,255,0.05)", tickfont=dict(color="#aaaaaa")),
+            yaxis=dict(gridcolor="rgba(255,255,255,0.05)", tickfont=dict(color="#aaaaaa")),
+            margin=dict(l=0, r=0, t=10, b=0),
+            showlegend=False
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
         # ── ROAST ──
         st.markdown('<div class="section-header">🔥 Your Roast</div>', unsafe_allow_html=True)
+        # clean up markdown asterisks for HTML display
+        roast_html = roast.replace("**ROAST**:", "<strong style='color:#ff4444'>🔥 ROAST</strong>")
+        roast_html = roast_html.replace("**WORST HABIT**:", "<strong style='color:#ff4444'>💀 WORST HABIT</strong>")
+        roast_html = roast_html.replace("**3 SAVINGS TIPS**:", "<strong style='color:#34d399'>💡 3 SAVINGS TIPS</strong>")
+        roast_html = roast_html.replace("**SAVINGS PREDICTION**:", "<strong style='color:#fbbf24'>📈 SAVINGS PREDICTION</strong>")
+        roast_html = roast_html.replace("**SCORE**:", "<strong style='color:#a78bfa'>⭐ SCORE</strong>")
+        roast_html = roast_html.replace("ROAST:", "<strong style='color:#ff4444'>🔥 ROAST</strong>")
+        roast_html = roast_html.replace("WORST HABIT:", "<strong style='color:#ff4444'>💀 WORST HABIT</strong>")
+        roast_html = roast_html.replace("3 SAVINGS TIPS:", "<strong style='color:#34d399'>💡 3 SAVINGS TIPS</strong>")
+        roast_html = roast_html.replace("SAVINGS PREDICTION:", "<strong style='color:#fbbf24'>📈 SAVINGS PREDICTION</strong>")
+        roast_html = roast_html.replace("SCORE:", "<strong style='color:#a78bfa'>⭐ SCORE</strong>")
+        roast_html = roast_html.replace("\n", "<br>")
+
         st.markdown(f"""
         <div class="roast-container">
             <div class="roast-header">⚡ RupeeRoast AI — Financial Intervention</div>
-            <div class="roast-text">{roast}</div>
+            <div class="roast-text">{roast_html}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -638,13 +679,11 @@ if uploaded_file is not None:
             tx_df = tx_df[tx_df["amount"] < 0].copy()
             tx_df["amount"] = tx_df["amount"].abs()
             tx_df = tx_df.sort_values("amount", ascending=False).head(10)
+            # show only clean columns
+            tx_df = tx_df[["merchant", "category", "amount"]].copy()
             tx_df["amount"] = tx_df["amount"].apply(lambda x: f"₹{x:,.2f}")
-            tx_df.columns = [c.title() for c in tx_df.columns]
-            st.dataframe(
-                tx_df,
-                use_container_width=True,
-                hide_index=True
-            )
+            tx_df.columns = ["Merchant", "Category", "Amount"]
+            st.dataframe(tx_df, use_container_width=True, hide_index=True)
 
         # dataset contribution
         st.markdown('<div class="section-header">🌐 Adaption Dataset Contribution</div>', unsafe_allow_html=True)
@@ -656,7 +695,8 @@ if uploaded_file is not None:
         with col2:
             st.metric("Unique Merchants", stats["unique_merchants"])
         with col3:
-            st.metric("Multilingual Entries", stats["multilingual_coverage"])
+            st.metric("Dataset Size", f"{stats['total_records']} rows")
+            st.metric("Languages", "14 🇮🇳")
         if 'dataset_count' in dir():
             st.success(f"✅ Your statement added **{dataset_count} records** to the RupeeRoast multilingual dataset — powering India's financial AI!")
         else:

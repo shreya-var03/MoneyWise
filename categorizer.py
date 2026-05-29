@@ -91,7 +91,7 @@ def categorize_single_batch_with_retry(batch_with_index, retries=3):
 
 
 def categorize_transactions(transactions_list, prebuilt_df=None):
-    batch_size = 20
+    batch_size = 50
     batches = [transactions_list[i:i+batch_size] 
                for i in range(0, len(transactions_list), batch_size)]
     

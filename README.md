@@ -6,6 +6,7 @@ MoneyWise is a localized, privacy-first financial wellness platform designed for
 
 Every statement uploaded also helps build Adaption, contributing to the next generation of open-source, multilingual financial datasets for India.
 
+
 ## Key Features
 
 * **Empathetic AI Coaching:** Powered by Llama 3.3 (via Groq), the AI distinguishes between essential living costs (healthcare, rent) and discretionary spending, offering supportive, actionable advice instead of generic criticism.
@@ -16,7 +17,6 @@ Every statement uploaded also helps build Adaption, contributing to the next gen
 * **Adaption Dataset Contribution:** Anonymized, categorized transaction data is contributed back to a growing, open-source dataset to power the future of Indian financial AI.
 * **Pitch-Ready Demo Mode:** One-click demo generation loading 48 pre-configured transactions for flawless, secure live presentations.
 
----
 
 ## Tech Stack
 
@@ -27,60 +27,6 @@ Every statement uploaded also helps build Adaption, contributing to the next gen
 * **Audio Processing:** Google Text-to-Speech (gTTS)
 * **PDF Parsing:** PyMuPDF / pdfplumber (via custom `parser.py`)
 
----
-
-## Installation and Setup
-
-**1. Clone the repository**
-
-```bash
-git clone https://github.com/yourusername/moneywise.git
-cd moneywise
-
-```
-
-**2. Create a virtual environment**
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-
-```
-
-**3. Install dependencies**
-
-```bash
-pip install -r requirements.txt
-
-```
-
-**4. Set up your environment variables**
-Create a `.env` file in the root directory and add your Groq API key:
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-
-```
-
-**5. Ensure Streamlit configuration is set**
-Verify you have the `.streamlit/config.toml` file in your root directory to enforce the custom dark theme:
-
-```toml
-[theme]
-base="dark"
-primaryColor="#a78bfa"
-secondaryBackgroundColor="#1e1e2f"
-
-```
-
-**6. Run the application**
-
-```bash
-streamlit run main.py
-
-```
-
----
 
 ## Project Structure
 
@@ -90,13 +36,11 @@ streamlit run main.py
 * `parser.py`: The local PDF parsing engine that extracts tables and scrubs PII.
 * `dataset_builder.py`: Manages the contribution of anonymized transaction data to the Adaption dataset.
 
----
 
 ## Acknowledgements
 
 MoneyWise relies on robust, language-native data to deliver its coaching. **We would like to expressly credit the Adaption platform**, from which we sourced the foundational linguistic dataset that makes our 8-language localization possible. Their work empowers the next generation of multilingual AI tools for Bharat.
 
----
 
 ## Why MoneyWise?
 

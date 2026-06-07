@@ -19,7 +19,7 @@ Analyze these transactions from an Indian bank statement and categorize each one
 Transactions:
 {transactions_text}
 
-For each transaction, return a JSON array where each item has:
+For each transaction, create an object with:
 - "description": the original transaction text (shortened, max 6 words)
 - "amount": extract the rupee amount as a number (negative for money sent/paid/withdrawn, positive for received/deposited)
 - "category": one of these: Food, Transport, Entertainment, Shopping, Transfer In, Transfer Out, Utilities, Healthcare, Education, Investment, Groceries, Personal Care, Other
@@ -44,25 +44,21 @@ Rules:
 - INTEREST PAID = Transfer In
 - If person name in UPI, use their name as merchant
 
-Return ONLY a valid JSON array, nothing else. No explanation, no markdown.
+Return a JSON object containing a single key "transactions" mapped to the array of these objects.
 """
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.1,
-        max_tokens=4000
+        max_tokens=4000,
+        response_format={"type": "json_object"} # Forces native JSON output
     )
     
-    raw = response.choices[0].message.content.strip()
-    raw = raw.replace("```json", "").replace("```", "").strip()
+    raw = response.choices[0].message.content
+    data = json.loads(raw)
     
-    start = raw.find('[')
-    end = raw.rfind(']') + 1
-    if start != -1 and end > start:
-        raw = raw[start:end]
-    
-    return index, json.loads(raw)
+    return index, data.get("transactions", [])
 
 
 import time

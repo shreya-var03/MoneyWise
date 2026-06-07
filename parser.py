@@ -1,5 +1,6 @@
 import pdfplumber
 import pandas as pd
+import re
 
 def extract_transactions(pdf_path):
     all_text = ""
@@ -12,22 +13,34 @@ def extract_transactions(pdf_path):
 
     return all_text
 
+# Regex patterns to detect dates and sensitive PII
+date_pattern = re.compile(r"^\d{2}[/-]\w{2,3}[/-]\d{2,4}")
+phone_pattern = re.compile(r"\b\d{10}\b")
+acct_pattern = re.compile(r"\b\d{12,18}\b")
+upi_pattern = re.compile(r"[a-zA-Z0-9.\-_]+@[a-zA-Z]+")
+
+def clean_pii(text):
+    """Strips sensitive information from the transaction line"""
+    text = phone_pattern.sub("[PHONE_REDACTED]", text)
+    text = acct_pattern.sub("[ACCOUNT_REDACTED]", text)
+    text = upi_pattern.sub("[UPI_REDACTED]", text)
+    return text
 
 def parse_transactions(raw_text):
-
     transactions = []
-
     lines = [line.strip() for line in raw_text.split("\n") if line.strip()]
 
     for line in lines:
-
+        # Catch UPI formats OR standard tabular bank formats
         if (
             "Paid to" in line
             or "Received from" in line
             or "Money sent" in line
+            or date_pattern.match(line)
         ):
-
-            transactions.append(line)
+            # Scrub the PII before saving it
+            safe_line = clean_pii(line)
+            transactions.append(safe_line)
 
     return transactions
 

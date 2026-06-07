@@ -50,7 +50,6 @@ JSON array only. No markdown."""
     if start != -1 and end > start:
         raw = raw[start:end]
     
-    import json
     return json.loads(raw)
 
 
@@ -165,7 +164,7 @@ def get_dataset_stats():
         "total_records": len(df),
         "unique_merchants": df["merchant"].nunique(),
         "categories": df["category"].value_counts().to_dict(),
-        "multilingual_coverage": len(df[df["category_hindi"] != ""]),
+        "multilingual_coverage": int(df["category_hindi"].notna().sum()), # Fixed NaN bug
         "languages": ["English", "Hindi", "Hinglish", "Tamil", "Telugu", "Bengali", "Marathi"]
     }
 

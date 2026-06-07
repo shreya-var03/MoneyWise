@@ -1,10 +1,45 @@
 import os
+import json
+import tempfile
+
+from gtts import gTTS
 from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+def generate_audio(text, language):
+    """Converts the text review into a playable audio file with the correct accent."""
+    
+    # Map your UI languages to gTTS language codes
+    lang_codes = {
+        "Hinglish": "en", # Indian English accent
+        "English": "en",
+        "Hindi": "hi",
+        "Tamil": "ta",
+        "Telugu": "te",
+        "Bengali": "bn",
+        "Marathi": "mr",
+        "Punjabi": "pa"
+    }
+    
+    # Default to Indian English ('co.in') if not found, else use the specific language
+    gtts_lang = lang_codes.get(language, "en")
+    tld = "co.in" if gtts_lang == "en" else "com"
+
+    try:
+        # Create the audio object
+        tts = gTTS(text=text, lang=gtts_lang, tld=tld, slow=False)
+        
+        # Save to a temporary file
+        temp_audio = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+        tts.save(temp_audio.name)
+        return temp_audio.name
+    except Exception as e:
+        print(f"Audio generation failed: {e}")
+        return None
 
 def generate_roast(categorized_transactions, language="Hinglish"):
     totals = {}
@@ -33,17 +68,25 @@ def generate_roast(categorized_transactions, language="Hinglish"):
                          for t in top_transactions])
 
     lang_instruction = {
-    "Hindi": "Respond entirely in Hindi (Devanagari script).",
-    "Hinglish": "Respond in Hinglish — casual mix of Hindi and English like a Gen Z Indian.",
-    "English": "Respond in English.",
-    "Tamil": "Respond entirely in Tamil script.",
-    "Telugu": "Respond entirely in Telugu script.",
-    "Bengali": "Respond entirely in Bengali (Bangla) script.",
-    "Marathi": "Respond entirely in Marathi (Devanagari script).",
-    "Punjabi": "Respond entirely in Punjabi (Gurmukhi script).",
-}.get(language, "Respond in English.")
+        "Hindi": "Respond entirely in Hindi (Devanagari script).",
+        "Hinglish": "Respond in Hinglish — a warm, supportive mix of Hindi and English.",
+        "English": "Respond in English.",
+        "Tamil": "Respond entirely in Tamil script.",
+        "Telugu": "Respond entirely in Telugu script.",
+        "Bengali": "Respond entirely in Bengali (Bangla) script.",
+        "Marathi": "Respond entirely in Marathi (Devanagari script).",
+        "Punjabi": "Respond entirely in Punjabi (Gurmukhi script).",
+    }.get(language, "Respond in English.")
 
-    prompt = f"""You are RupeeRoast — savage, funny, brutally honest Indian finance coach. Zero chill. {lang_instruction}
+    prompt = f"""
+You are an empathetic, insightful, and encouraging financial coach specializing in Indian personal finance. 
+Analyze the following summary of transactions and provide a constructive financial review.
+
+CRITICAL RULES:
+1. Distinguish between fixed/essential needs (Rent, Insurance, Medical, Utilities) and discretionary lifestyle wants (Zomato, Swiggy, Clubs, Shopping).
+2. NEVER criticize or judge spending on healthcare, medicine, rent, education, or family support. Acknowledge these as vital responsibilities.
+3. Focus your constructive feedback entirely on optimization—where they can cut back on unnecessary subscriptions, dining out, or impulsive UPI spending without sacrificing their quality of life.
+4. Keep the tone warm, motivational, and culturally relatable to a young Indian user. {lang_instruction}
 
 Spending summary:
 Total Spent: ₹{total_spent:.0f} | Total Received: ₹{total_received:.0f}
@@ -54,39 +97,49 @@ Top categories:
 Biggest transactions:
 {tx_text}
 
-Give:
-1. ROAST (4-5 lines): Brutal, funny, specific. Name merchants and amounts.
-2. WORST HABIT: One line calling out the biggest problem.
-3. 3 SAVINGS TIPS: Specific and practical for India.
-4. SAVINGS PREDICTION: How much they could save next month.
-5. SCORE: Financial health score /10 with one-line judgement.
-
-Be savage, be real, be memorable."""
+You must respond strictly with a valid JSON object matching this schema:
+{{
+    "review": "A paragraph of warm, constructive feedback highlighting what they are doing right, validating their essential expenses, and gently pointing out where they can save.",
+    "worst_habit": "Identify the primary category of discretionary leakage (e.g., 'Late-night food ordering micro-transactions'). If none exists, highlight a positive saving habit.",
+    "savings_tips": [
+        "Constructive tip 1 focused on mindful spending.",
+        "Constructive tip 2 focused on smart budgeting tools.",
+        "Constructive tip 3 focused on long-term wealth building."
+    ],
+    "financial_health_score": 85
+}}
+"""
    
     try:
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
-            temperature=1.0,
-            max_tokens=1000
+            temperature=0.3, # Lowered temperature for perfect JSON stability
+            max_tokens=1000,
+            response_format={"type": "json_object"}
         )
-        return response.choices[0].message.content, totals, total_spent, total_received
+        
+        raw_content = response.choices[0].message.content
+        analysis_data = json.loads(raw_content)
+        
+        return analysis_data, totals, total_spent, total_received
+        
     except Exception as e:
         if "429" in str(e):
-            fallback = """🔥 Daily token limit reached — but here's what we know:
-
-**WORST HABIT:** You spent the most on food delivery. Classic.
-
-**3 SAVINGS TIPS:**
-1. Cook at home at least 3 days a week
-2. Set a monthly food delivery budget
-3. Cancel subscriptions you forgot about
-
-**SAVINGS PREDICTION:** You could save ₹2,000-5,000 next month with discipline.
-
-**SCORE: 5/10** — Could be worse, could be much better. 💀"""
-        return fallback, totals, total_spent, total_received
-    raise e
+            fallback_data = {
+                "review": "We've reached our daily processing limit, but from a quick glance, you're managing your core expenses well. Remember that spending on essentials like health, education, and rent is an investment in your well-being.",
+                "worst_habit": "We can always optimize discretionary spending like food delivery or impulse shopping.",
+                "savings_tips": [
+                    "Prioritize essential bills at the start of the month.",
+                    "Track small daily UPI transactions—they add up quickly.",
+                    "Set aside a small emergency fund, even if it's just ₹500 a month."
+                ],
+                "financial_health_score": 75
+            }
+            return fallback_data, totals, total_spent, total_received
+        
+        # If it's NOT a 429, we safely raise the original exception
+        raise e
 
 if __name__ == "__main__":
     from parser import get_transaction_dataframe
@@ -96,5 +149,5 @@ if __name__ == "__main__":
     if path:
         df, _ = get_transaction_dataframe(path)
         categorized = categorize_transactions(df["raw_transaction"].tolist())
-        roast, totals, spent, received = generate_roast(categorized)
-        print(roast)
+        analysis_data, totals, spent, received = generate_roast(categorized)
+        print(json.dumps(analysis_data, indent=2))

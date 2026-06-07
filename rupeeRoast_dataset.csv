@@ -83,7 +83,6 @@ timestamp,merchant,category,amount_range,transaction_type,country,currency,merch
 2026-05-29,Devanshi Gupta,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,Jio,Utilities,100-500,debit,India,INR,Services,सुविधाएं,Utilities,मोबाइल बिल,Mobile bill,RupeeRoast
 2026-05-29,Gajendra,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Ekart,Shopping,500-1000,debit,India,INR,Retail,,,,,RupeeRoast
 2026-05-29,Lickilick,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
 2026-05-29,Baskin Robbins,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
 2026-05-29,Hairand,Personal Care,100-500,debit,India,INR,Wellness,,,,,RupeeRoast
@@ -104,120 +103,140 @@ timestamp,merchant,category,amount_range,transaction_type,country,currency,merch
 2026-05-29,Letzpay,Transfer In,10000+,credit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,Kalpna,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,Savana Com,Other,1000-5000,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Swati Vishal Varshney,Transfer Out,0-100,debit,India,INR,P2P,हस्तांतरण,Transfer,१० रुपये का हस्तांतरण,10 rupees ka transfer,RupeeRoast
-2026-05-29,Burger King,Food,100-500,debit,India,INR,F&B,भोजन,Khana,बर्गर किंग से खाना,Burger king se khana,RupeeRoast
-2026-05-29,Gyanshanker Kumar Jha,Other,0-100,debit,India,INR,Other,अन्य,Any,ग्यानशंकर कुमार झा को ३० रुपये का भुगतान,Gyanshanker kumar jha ko 30 rupees ka payment,RupeeRoast
-2026-05-29,Miniso,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
-2026-05-29,Saumya Sharma,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Vanshika Chauhan,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shashi Chaurasiya,Other,100-500,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Devyani Sharma,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Mr Yash Chaudhary,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Mr Panshul Kantan,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Jahnavi Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,SUNEETA,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Ajay Kumar Prajapati,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Aman Kumar Tulsyan,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Kashish Gupta,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Subhash Chandra Roy,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shekhar Singhh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Mustakeem Khan,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Mr Mohit,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Bhoodav Singh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Swiggy,Groceries,100-500,debit,India,INR,Retail,भोजन,Khana,स्विगी से खाना ऑर्डर,Swiggy se khana order,RupeeRoast
-2026-05-29,Sunny,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Maanya Gupta,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Nimish Srivastav,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Arnav Sharma,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Niyaj Ahamad,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Ishit Dev Sinha,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Noida Metro Rail,Transport,100-500,debit,India,INR,Mobility,,,,,RupeeRoast
-2026-05-29,Ishit Dev Sinha,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Le Broc 5,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Aakash,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Uber,Transport,0-100,debit,India,INR,Mobility,,,,,RupeeRoast
-2026-05-29,ShambhaviMishra,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Rangila Store,Shopping,0-100,debit,India,INR,Retail,,,,,RupeeRoast
-2026-05-29,Varshney K,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,HANGOUT,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Jaypee Institute Of Information,Education,0-100,debit,India,INR,EdTech,शिक्षा,Shiksha,जेपी इंस्टीट्यूट ऑफ इन्फॉर्मेशन की फीस,Jaypee institute of information ki fees,RupeeRoast
-2026-05-29,Ashu Srivastva,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Rahul Gupta,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Kajal,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Jahir Ahmad,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Phool Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Nitesh Kumar Tiwari,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Rajesh Kumar Manglani,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,Mr ADITYA UPADHYAY,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Hair Rush Unisex Saloon,Personal Care,100-500,debit,India,INR,Wellness,,,,,RupeeRoast
-2026-05-29,Kool Hut,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Shahbaj Alam,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Pankaj Kumar Dhakad,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Gyanshanker Kumar Jha,Transfer Out,0-100,debit,India,INR,P2P,अन्य,Any,ग्यानशंकर कुमार झा को ३० रुपये का भुगतान,Gyanshanker kumar jha ko 30 rupees ka payment,RupeeRoast
-2026-05-29,Dominos,Food,0-100,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Devansh Varshney,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Akash Kumar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Aakarsh Shrivastava,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shubhi Garg,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Isha Singh,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shubhi Chauhan,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shubhika Sachdeva,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,EKART,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
-2026-05-29,Alok Parashri,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shubham Shukla,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Shashank Choudhary,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Blinkit,Groceries,1000-5000,debit,India,INR,Retail,किराना,Kirana,ब्लिंकिट से किराना सामान,Blinkit se kirana saman,RupeeRoast
-2026-05-29,Coursera,Education,1000-5000,debit,India,INR,EdTech,,,,,RupeeRoast
-2026-05-29,Kamal Singh,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Devansh Varshney,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Bistro,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Mansvi Shukla,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,Chandan Kumar,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Naresh Shrivastav,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Jayprakash,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Dominos Pizza,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Subhash Chandra Roy,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Shubhi Garg,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Nikita Agarwal,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Amazon,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
 2026-05-29,Bhuri Singh,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Sant Kumar Pandey,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
 2026-05-29,Mahesh Ojha,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,M S Birinj Restro,Food,0-100,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,VINCA Hair clinic,Personal Care,100-500,debit,India,INR,Wellness,,,,,RupeeRoast
 2026-05-29,Mr Md Alam,Other,100-500,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Saara Goyal,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Sohan Lal,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,IIT Madras,Education,1000-5000,debit,India,INR,EdTech,,,,,RupeeRoast
-2026-05-29,Sunil Kumar,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Sant Kumar Pandey,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Cosmofeed,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Zomato,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Shivam Bhatia,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Anushka Tayal,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
 2026-05-29,Aarti,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Rakesh Kumar Giri,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Jitendra Tiwari,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Sanskar Phougat,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Zepto,Groceries,100-500,debit,India,INR,Retail,,,,,RupeeRoast
-2026-05-29,Jyotishka Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Bhavya Khatri,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Nikita Agarwal,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Savana,Other,1000-5000,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,Eversub India,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
-2026-05-29,District Dining,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
-2026-05-29,Manan Singhal,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Kamal Singh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Swiggy,Food,100-500,debit,India,INR,F&B,भोजन,Khana,स्विगी से खाना ऑर्डर,Swiggy se khana order,RupeeRoast
-2026-05-29,Praveen Kumar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Arvind Parihar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Bhoomija Garg,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Saara Goyal,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Jyotishka Singh,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Aarohi Joshi,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Divya Sharma,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Kalpna Mishra,Transfer In,0-100,credit,India,INR,P2P,हस्तांतरण,Transfer,कल्पना मिश्रा को १९५ रुपये का हस्तांतरण,Kalpna mishra ko 195 rupees ka transfer,RupeeRoast
-2026-05-29,Vipin Tomer,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
-2026-05-29,Kalpna Mishra,Transfer Out,100-500,debit,India,INR,P2P,हस्तांतरण,Transfer,कल्पना मिश्रा को १९५ रुपये का हस्तांतरण,Kalpna mishra ko 195 rupees ka transfer,RupeeRoast
-2026-05-29,Swati Vishal Varshney,Transfer In,500-1000,credit,India,INR,P2P,हस्तांतरण,Transfer,१० रुपये का हस्तांतरण,10 rupees ka transfer,RupeeRoast
-2026-05-29,Jaypee Institute,Education,0-100,debit,India,INR,EdTech,,,,,RupeeRoast
+2026-06-03,Subhash Chandra Roy,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-03,Noida Metro Rail,Transport,100-500,debit,India,INR,Mobility,,,,,RupeeRoast
+2026-06-03,HANGOUT,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Swiggy,Groceries,100-500,debit,India,INR,Retail,भोजन,Khana,स्विगी से भोजन,Swiggy se khana,RupeeRoast
+2026-06-04,Dominos,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Iit Madras,Education,1000-5000,debit,India,INR,EdTech,,,,,RupeeRoast
+2026-06-04,Www Savana,Other,1000-5000,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Swati Vishal Varshney,Transfer Out,0-100,debit,India,INR,P2P,हस्तांतरण,Transfer,१० रुपये का हस्तांतरण,10 rupees transfer out,RupeeRoast
+2026-06-04,Burger King,Food,100-500,debit,India,INR,F&B,भोजन,Khana,बurger king से भोजन,Khana from burger king,RupeeRoast
+2026-06-04,Gyanshanker Kumar Jha,Other,0-100,debit,India,INR,Other,अन्य,Any,३० रुपये का अन्य लेनदेन,30 rupees any transaction,RupeeRoast
+2026-06-04,Miniso,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,Saumya Sharma,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Vanshika Chauhan,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shashi Chaurasiya,Other,100-500,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Devyani Sharma,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Swiggy Ltd,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Mr Yash Chaudhary,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Amazon Pay Gift Card,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,Mr Panshul Kantan,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Jahnavi Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Zepto Marketplace Private,Groceries,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,SUNEETA,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Ajay Kumar Prajapati,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Aman Kumar Tulsyan,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Kashish Gupta,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shekhar Singhh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Mustakeem Khan,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Mr Mohit,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Bhoodav Singh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Swiggy Instamart,Groceries,100-500,debit,India,INR,Retail,किराना,Kirana,स्विगी इंस्टामार्ट से किराना,Kirana from swiggy instamart,RupeeRoast
+2026-06-04,Sunny,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Maanya Gupta,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Nimish Srivastav,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Arnav Sharma,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Niyaj Ahamad,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Ishit Dev Sinha,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Noida Metro Rail Corporation,Transport,100-500,debit,India,INR,Mobility,,,,,RupeeRoast
+2026-06-04,Ishit Dev Sinha,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Le Broc 5,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Aakash,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,ShambhaviMishra,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Rangila Store,Shopping,0-100,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,Varshney K,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,HANGOUT,Entertainment,100-500,debit,India,INR,Leisure,,,,,RupeeRoast
+2026-06-04,Jaypee Institute Of Information,Education,0-100,debit,India,INR,EdTech,शिक्षा,Shiksha,जेपी इंस्टीट्यूट ऑफ इन्फॉर्मेशन में शिक्षा शुल्क,Shiksha fees at jaypee institute,RupeeRoast
+2026-06-04,Ashu Srivastva,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Rahul Gupta,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Kajal,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Jahir Ahmad,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Phool Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Nitesh Kumar Tiwari,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Rajesh Kumar Manglani,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Aditya Upadhyay,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Hair Rush Unisex Saloon,Personal Care,100-500,debit,India,INR,Wellness,,,,,RupeeRoast
+2026-06-04,Kool Hut,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Shahbaj Alam,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Pankaj Kumar Dhakad,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Gyanshanker Kumar Jha,Transfer Out,0-100,debit,India,INR,P2P,अन्य,Any,३० रुपये का अन्य लेनदेन,30 rupees any transaction,RupeeRoast
+2026-06-04,Devansh Varshney,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Akash Kumar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Aakarsh Shrivastava,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shubhi Garg,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Isha Singh,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shubhi Chauhan,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shubhika Sachdeva,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Ekart,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,Alok Parashri,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shubham Shukla,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shashank Choudhary,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Coursera,Education,1000-5000,debit,India,INR,EdTech,,,,,RupeeRoast
+2026-06-04,Kamal Singh,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Devansh Varshney,Transfer Out,1000-5000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Bistro,Food,100-500,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Mansvi Shukla,Transfer In,100-500,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Chandan Kumar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Naresh Shrivastav,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Jayprakash,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Dominos Pizza,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Subhash Chandra Roy,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Shubhi Garg,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Nikita Agarwal,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Amazon,Shopping,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,Bhuri Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Sant Kumar Pandey,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Mahesh Ojha,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,M S Birinj Restro,Food,0-100,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,VINCA Hair clinic,Personal Care,100-500,debit,India,INR,Wellness,,,,,RupeeRoast
+2026-06-04,Mr Md Alam,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Saara Goyal,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Sohan Lal,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,IIT Madras,Education,1000-5000,debit,India,INR,EdTech,,,,,RupeeRoast
+2026-06-04,Sunil Kumar,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Sant Kumar Pandey,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Cosmofeed,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Shivam Bhatia,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Anushka Tayal,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Aarti,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Rakesh Kumar Giri,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Jitendra Tiwari,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Sanskar Phougat,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Zepto,Groceries,100-500,debit,India,INR,Retail,,,,,RupeeRoast
+2026-06-04,Jyotishka Singh,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Bhavya Khatri,Transfer Out,500-1000,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Nikita Agarwal,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Savana,Other,1000-5000,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Eversub India,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,District Dining,Food,500-1000,debit,India,INR,F&B,,,,,RupeeRoast
+2026-06-04,Manan Singhal,Transfer In,1000-5000,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Divya Sharma,Other,0-100,debit,India,INR,Other,,,,,RupeeRoast
+2026-06-04,Jaypee Institute,Education,100-500,debit,India,INR,EdTech,,,,,RupeeRoast
+2026-06-04,Kamal Singh,Transfer Out,100-500,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Praveen Kumar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Arvind Parihar,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Bhoomija Garg,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Saara Goyal,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Jyotishka Singh,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Aarohi Joshi,Transfer In,0-100,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Divya Sharma,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Kalpna Mishra,Transfer In,0-100,credit,India,INR,P2P,हस्तांतरण,Transfer,१९५ रुपये का हस्तांतरण,195 rupees transfer out,RupeeRoast
+2026-06-04,Vipin Tomer,Transfer Out,0-100,debit,India,INR,P2P,,,,,RupeeRoast
+2026-06-04,Kalpna Mishra,Transfer Out,100-500,debit,India,INR,P2P,हस्तांतरण,Transfer,१९५ रुपये का हस्तांतरण,195 rupees transfer out,RupeeRoast
+2026-06-04,Swati Vishal Varshney,Transfer In,500-1000,credit,India,INR,P2P,हस्तांतरण,Transfer,१० रुपये का हस्तांतरण,10 rupees transfer out,RupeeRoast
+2026-06-04,Jaypee Institute Of In,Education,0-100,debit,India,INR,EdTech,,,,,RupeeRoast
+2026-06-05,SALARY TECH CORP,Transfer In,10000+,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-05,Zomato,Food,100-500,debit,India,INR,F&B,भोजन,Khana,भोजन का ऑर्डर,Khana order,RupeeRoast
+2026-06-05,Swiggy,Food,500-1000,debit,India,INR,F&B,भोजन,Khana,भोजन का ऑर्डर,Khana order,RupeeRoast
+2026-06-05,Tech Corp,Transfer In,10000+,credit,India,INR,P2P,,,,,RupeeRoast
+2026-06-05,Blinkit,Groceries,1000-5000,debit,India,INR,Retail,किराना,Kirana,किराना सामान,Kirana saman,RupeeRoast
+2026-06-05,BookMyShow,Entertainment,500-1000,debit,India,INR,Leisure,मनोरंजन,Entertainment,टिकट बुकिंग,Ticket booking,RupeeRoast
+2026-06-05,Uber,Transport,100-500,debit,India,INR,Mobility,परिवहन,Travel,कैब किराया,Cab fare,RupeeRoast

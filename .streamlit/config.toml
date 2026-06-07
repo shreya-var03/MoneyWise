@@ -1,0 +1,9 @@
+[theme]
+# Force the app to always be in dark mode
+base="dark"
+
+# Use the RupeeReview neon purple as the primary accent color
+primaryColor="#a78bfa"
+
+# Make the sidebar a slightly darker, clean color
+secondaryBackgroundColor="#1e1e2f"

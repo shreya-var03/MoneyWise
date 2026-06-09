@@ -12,10 +12,8 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def generate_audio(text, language):
     """Converts the text review into a playable audio file with the correct accent."""
-    
-    # Map your UI languages to gTTS language codes
     lang_codes = {
-        "Hinglish": "en", # Indian English accent
+        "Hinglish": "en",
         "English": "en",
         "Hindi": "hi",
         "Tamil": "ta",
@@ -25,15 +23,11 @@ def generate_audio(text, language):
         "Punjabi": "pa"
     }
     
-    # Default to Indian English ('co.in') if not found, else use the specific language
     gtts_lang = lang_codes.get(language, "en")
     tld = "co.in" if gtts_lang == "en" else "com"
 
     try:
-        # Create the audio object
         tts = gTTS(text=text, lang=gtts_lang, tld=tld, slow=False)
-        
-        # Save to a temporary file
         temp_audio = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
         tts.save(temp_audio.name)
         return temp_audio.name
@@ -55,7 +49,6 @@ def generate_roast(categorized_transactions, language="Hinglish"):
         else:
             total_received += amt
 
-    # only send TOP 5 categories + top 8 transactions to save tokens
     top_categories = sorted(totals.items(), key=lambda x: x[1], reverse=True)[:5]
     top_transactions = sorted(
         [t for t in categorized_transactions if t.get("amount", 0) < 0],
@@ -64,8 +57,7 @@ def generate_roast(categorized_transactions, language="Hinglish"):
     )[:8]
 
     totals_text = "\n".join([f"- {cat}: ₹{amt:.0f}" for cat, amt in top_categories])
-    tx_text = "\n".join([f"- {t['merchant']}: ₹{abs(t['amount']):.0f} ({t['category']})" 
-                         for t in top_transactions])
+    tx_text = "\n".join([f"- {t['merchant']}: ₹{abs(t['amount']):.0f} ({t['category']})" for t in top_transactions])
 
     lang_instruction = {
         "Hindi": "Respond entirely in Hindi (Devanagari script).",
@@ -78,57 +70,50 @@ def generate_roast(categorized_transactions, language="Hinglish"):
         "Punjabi": "Respond entirely in Punjabi (Gurmukhi script).",
     }.get(language, "Respond in English.")
 
-    prompt = f"""
-You are an empathetic, insightful, and encouraging financial coach specializing in Indian personal finance. 
-Analyze the following summary of transactions and provide a constructive financial review.
+    # ── 1. EXPLICITLY DEFINE THE PROMPT ──
+    system_prompt = f"""
+    You are a highly analytical and empathetic financial coach. Analyze the spending patterns and output your response entirely in {language}.
+    {lang_instruction}
+    
+    You MUST reply in valid JSON format using exactly these keys:
+    {{
+        "review": "Write exactly 3 distinct bullet points summarizing their financial health. Each bullet point MUST be 15 to 25 words long. You MUST separate each point with double newlines. Format EXACTLY like this: \\n\\n* [First point, 15-25 words.] \\n\\n* [Second point, 15-25 words.] \\n\\n* [Third point, 15-25 words.]",
+        
+        "worst_habit": "Write exactly 3 distinct bullet points explaining areas for optimization. Each bullet point MUST be 15 to 25 words long. You MUST separate each point with double newlines. Format EXACTLY like this: \\n\\n* [First point, 15-25 words.] \\n\\n* [Second point, 15-25 words.] \\n\\n* [Third point, 15-25 words.]",
+        
+        "savings_tips": [
+            "Write an actionable tip (exactly 15-25 words).",
+            "Write an actionable tip (exactly 15-25 words).",
+            "Write an actionable tip (exactly 15-25 words)."
+        ]
+    }}
+    CRITICAL INSTRUCTION: You must strictly adhere to the 15-25 word count per point to ensure they are the correct visual length. You MUST use double newlines (\\n\\n) between bullet points in the review and worst_habit strings so the UI renders them on separate lines.
+    """
+    
+    user_prompt = f"Total Spent: ₹{total_spent}\nTotal Received: ₹{total_received}\n\nTop Categories:\n{totals_text}\n\nTop Transactions:\n{tx_text}"
 
-CRITICAL RULES:
-1. Distinguish between fixed/essential needs (Rent, Insurance, Medical, Utilities) and discretionary lifestyle wants (Zomato, Swiggy, Clubs, Shopping).
-2. NEVER criticize or judge spending on healthcare, medicine, rent, education, or family support. Acknowledge these as vital responsibilities.
-3. Focus your constructive feedback entirely on optimization—where they can cut back on unnecessary subscriptions, dining out, or impulsive UPI spending without sacrificing their quality of life.
-4. Keep the tone warm, motivational, and culturally relatable to a young Indian user. {lang_instruction}
-
-Spending summary:
-Total Spent: ₹{total_spent:.0f} | Total Received: ₹{total_received:.0f}
-
-Top categories:
-{totals_text}
-
-Biggest transactions:
-{tx_text}
-
-You must respond strictly with a valid JSON object matching this schema:
-{{
-    "review": "A paragraph of warm, constructive feedback highlighting what they are doing right, validating their essential expenses, and gently pointing out where they can save.",
-    "worst_habit": "Identify the primary category of discretionary leakage (e.g., 'Late-night food ordering micro-transactions'). If none exists, highlight a positive saving habit.",
-    "savings_tips": [
-        "Constructive tip 1 focused on mindful spending.",
-        "Constructive tip 2 focused on smart budgeting tools.",
-        "Constructive tip 3 focused on long-term wealth building."
-    ],
-    "financial_health_score": 85
-}}
-"""
-   
+    # ── 2. MAKE THE API CALL ──
     try:
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.3, # Lowered temperature for perfect JSON stability
-            max_tokens=1000,
-            response_format={"type": "json_object"}
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            response_format={"type": "json_object"},
+            max_tokens=8192,
+            temperature=0.6  # Perfect balance for length and formatting
         )
         
         raw_content = response.choices[0].message.content
         analysis_data = json.loads(raw_content)
-        
         return analysis_data, totals, total_spent, total_received
         
     except Exception as e:
         if "429" in str(e):
             fallback_data = {
-                "review": "We've reached our daily processing limit, but from a quick glance, you're managing your core expenses well. Remember that spending on essentials like health, education, and rent is an investment in your well-being.",
-                "worst_habit": "We can always optimize discretionary spending like food delivery or impulse shopping.",
+                "review": "We've reached our daily processing limit, but from a quick glance, you're doing well.",
+                "worst_habit": "We can always optimize discretionary spending.",
                 "savings_tips": [
                     "Prioritize essential bills at the start of the month.",
                     "Track small daily UPI transactions—they add up quickly.",
@@ -137,8 +122,6 @@ You must respond strictly with a valid JSON object matching this schema:
                 "financial_health_score": 75
             }
             return fallback_data, totals, total_spent, total_received
-        
-        # If it's NOT a 429, we safely raise the original exception
         raise e
 
 if __name__ == "__main__":

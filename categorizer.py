@@ -1,129 +1,90 @@
+import pandas as pd
+import re
 import os
-import json
-from groq import Groq
-from dotenv import load_dotenv
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
-load_dotenv()
+# ── 1. LOAD THE DATASET INTO MEMORY ──
+DATASET_PATH = "rupeeroast_txn_categories.csv"
+MERCHANT_MAP = {}
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# We load the CSV once when the app starts and turn it into a fast lookup dictionary
+if os.path.exists(DATASET_PATH):
+    df = pd.read_csv(DATASET_PATH)
+    for _, row in df.iterrows():
+        # Clean the data: remove empty rows and make everything lowercase for easy matching
+        if pd.notna(row['merchant']) and pd.notna(row['category']):
+            clean_merchant = str(row['merchant']).strip().lower()
+            clean_category = str(row['category']).strip().title()
+            MERCHANT_MAP[clean_merchant] = clean_category
+else:
+    print(f"⚠️ Warning: {DATASET_PATH} not found in the folder! Make sure it is uploaded.")
 
-def categorize_single_batch(batch_with_index):
-    index, batch = batch_with_index
-    transactions_text = "\n".join(batch)
+def extract_amount(text):
+    """Helper function to find the monetary amount in a raw bank string."""
+    # Finds numbers with optional decimals (e.g., 1200, 15.50)
+    matches = re.findall(r'\d+(?:\.\d+)?', str(text).replace(',', ''))
+    if matches:
+        return float(matches[-1]) 
+    return 0.0
+
+def categorize_transactions(raw_transactions, prebuilt_df=None):
+    """
+    Takes a list of raw transaction strings and returns a list of dictionaries 
+    with clean merchants, amounts, and mapped categories instantly using the dataset.
+    """
+    print(f"Total transactions to process locally: {len(raw_transactions)}")
+    categorized = []
     
-    prompt = f"""
-You are a smart Indian finance assistant.
-Analyze these transactions from an Indian bank statement and categorize each one.
-
-Transactions:
-{transactions_text}
-
-For each transaction, create an object with:
-- "description": the original transaction text (shortened, max 6 words)
-- "amount": extract the rupee amount as a number (negative for money sent/paid/withdrawn, positive for received/deposited)
-- "category": one of these: Food, Transport, Entertainment, Shopping, Transfer In, Transfer Out, Utilities, Healthcare, Education, Investment, Groceries, Personal Care, Other
-- "merchant": the actual merchant or person name (e.g. "Zomato", "Blinkit", "Uber", "Manan Singhal"). Be specific — don't say "Unknown" if you can figure it out from the text.
-
-Rules:
-- UPI-ZOMATO = Food, merchant Zomato
-- UPI-BLINKIT = Groceries, merchant Blinkit  
-- UPI-SWIGGY = Food, merchant Swiggy
-- UPI-UBER = Transport, merchant Uber
-- UPI-AMAZON = Shopping, merchant Amazon
-- UPI-MCDONALDS = Food, merchant McDonalds
-- UPI-DOMINOS = Food, merchant Dominos
-- UPI-BASKIN = Food, merchant Baskin Robbins
-- UPI-BOOKMYSHOW = Entertainment, merchant BookMyShow
-- UPI-JIO = Utilities, merchant Jio
-- PETROLEUM/FUEL/PETROL = Transport
-- NEFT CR / IMPS deposit = Transfer In
-- SALARY/LETZPAY/DNS = Transfer In (salary)
-- JYOTI BROKING = Investment
-- IRFC/APY = Investment
-- INTEREST PAID = Transfer In
-- If person name in UPI, use their name as merchant
-
-Return a JSON object containing a single key "transactions" mapped to the array of these objects.
-"""
-
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.1,
-        max_tokens=4000,
-        response_format={"type": "json_object"} # Forces native JSON output
-    )
-    
-    raw = response.choices[0].message.content
-    data = json.loads(raw)
-    
-    return index, data.get("transactions", [])
-
-
-import time
-
-def categorize_single_batch_with_retry(batch_with_index, retries=3):
-    index, batch = batch_with_index
-    for attempt in range(retries):
-        try:
-            return categorize_single_batch((index, batch))
-        except Exception as e:
-            if "429" in str(e) or "rate_limit" in str(e):
-                wait_time = 15 * (attempt + 1)
-                print(f"⏳ Batch {index+1} rate limited — waiting {wait_time}s then retrying...")
-                time.sleep(wait_time)
-            else:
-                print(f"❌ Batch {index+1} error: {e}")
-                break
-    
-    print(f"❌ Batch {index+1} failed after {retries} retries — using fallback")
-    return index, [{
-        "description": t[:40],
-        "amount": 0,
-        "category": "Other",
-        "merchant": "Unknown"
-    } for t in batch]
-
-
-def categorize_transactions(transactions_list, prebuilt_df=None):
-    batch_size = 50
-    batches = [transactions_list[i:i+batch_size] 
-               for i in range(0, len(transactions_list), batch_size)]
-    
-    print(f"Total transactions: {len(transactions_list)}")
-    print(f"Total batches: {len(batches)} — running with rate limit protection...")
-    
-    results = [None] * len(batches)
-    
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        futures = {
-            executor.submit(categorize_single_batch_with_retry, (i, batch)): i 
-            for i, batch in enumerate(batches)
-        }
+    for tx in raw_transactions:
+        tx_lower = str(tx).lower()
+        amount = extract_amount(tx_lower)
         
-        for future in as_completed(futures):
-            try:
-                index, result = future.result()
-                results[index] = result
-                print(f"✅ Batch {index+1}/{len(batches)} done")
-            except Exception as e:
-                index = futures[future]
-                print(f"❌ Batch {index+1} final failure: {e}")
-                results[index] = [{
-                    "description": t[:40],
-                    "amount": 0,
-                    "category": "Other",
-                    "merchant": "Unknown"
-                } for t in batches[index]]
-    
-    all_categorized = []
-    for r in results:
-        if r:
-            all_categorized.extend(r)
-    
-    return all_categorized
+        # Determine if it's a credit (+) or debit (-)
+        if " cr " in tx_lower or " cr." in tx_lower or "credit" in tx_lower or " deposit" in tx_lower:
+            amount = abs(amount)
+        elif " dr " in tx_lower or " dr." in tx_lower or "debit" in tx_lower or " paid" in tx_lower:
+            amount = -abs(amount)
+        else:
+            # Assume debit if it doesn't specify, as most bank statement entries are spends
+            amount = -abs(amount)
+        
+        found_merchant = "Unknown"
+        found_category = "Other"
+        
+        # ── 2. THE SMART DATASET LOOKUP ──
+        # Check if any merchant from our CSV exists in the raw transaction string
+        matched = False
+        for merchant_name, category in MERCHANT_MAP.items():
+            if merchant_name in tx_lower:
+                found_merchant = merchant_name.title() # Capitalize it nicely (e.g., "Blinkit")
+                found_category = category              # Map the exact category (e.g., "Groceries")
+                matched = True
+                break
+                
+        # ── 3. FALLBACK LOGIC (If the merchant isn't in the CSV) ──
+        if not matched:
+            # Try to grab the first word as the merchant name
+            words = re.sub(r'[^a-zA-Z\s]', '', tx_lower).split()
+            if len(words) > 0:
+                # Exclude common bank words
+                clean_words = [w for w in words if w not in ["upi", "cr", "dr", "neft", "imps", "rtgs", "to", "from", "inb"]]
+                if clean_words:
+                    found_merchant = clean_words[0].title()
+            
+            # Auto-categorize based on money flow
+            if amount > 0:
+                found_category = "Transfer In"
+            else:
+                found_category = "Transfer Out"
 
+        # Append the beautifully formatted transaction
+        categorized.append({
+            "merchant": found_merchant,
+            "category": found_category,
+            "amount": amount
+        })
+        
+    print("✅ Local categorization complete!")
+    return categorized
 
 if __name__ == "__main__":
     from parser import get_transaction_dataframe

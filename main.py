@@ -831,17 +831,26 @@ if 'active_df' in st.session_state and not st.session_state['active_df'].empty:
         st.markdown(f'<div class="section-header">{t["top_expenditures"]}</div>', unsafe_allow_html=True)
         if categorized:
             tx_df = pd.DataFrame(categorized)
+            
+            # 1. Filter out only the expenses (negative amounts) and make them positive for the chart
             tx_df = tx_df[tx_df["amount"] < 0].copy()
             tx_df["amount"] = tx_df["amount"].abs()
+            
+            # 🔥 2. THE MAGIC MERGE: This forces all identical merchants to combine their totals!
+            # If there are five 1200 Blinkit rows, this crushes them into one 6000 Blinkit row.
+            tx_df = tx_df.groupby(["merchant", "category"], as_index=False)["amount"].sum()
+            
+            # 3. Sort by highest amount and pick the top 10
             tx_df = tx_df.sort_values("amount", ascending=False).head(10)
-            tx_df = tx_df[["merchant", "category", "amount"]].copy()
+            
+            # 4. Format the money nicely
             tx_df["amount"] = tx_df["amount"].apply(lambda x: f"₹{x:,.2f}")
             
-            # BULLETPROOF TRANSLATION LOGIC (Cleans hidden AI spaces before translating)
+            # 5. Translate the categories into the chosen regional language
             tx_df["category"] = tx_df["category"].astype(str).str.strip().str.title()
             tx_df["category"] = tx_df["category"].apply(lambda x: t.get("categories", {}).get(x, x))
             
-            # Set the column headers
+            # 6. Display the table
             tx_df.columns = [t["merchant"], t["category"], t["amount"]]
             st.dataframe(tx_df, use_container_width=True, hide_index=True)
 

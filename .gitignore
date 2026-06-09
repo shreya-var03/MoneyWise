@@ -1,11 +1,11 @@
-# Ignore virtual environments
+# Environments
 venv/
-.venv/
-env/
+.env
 
-# Ignore Python cache
-**/__pycache__/
+# Python cache
+__pycache__/
 *.pyc
 
-# Ignore environment variables (sensitive data)
-.env
+# Local Data (Optional, if you don't want your personal PDFs or CSVs public)
+adaption_contributions.csv
+*.pdf
